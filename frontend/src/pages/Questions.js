@@ -105,7 +105,7 @@ export default function Questions() {
                 {questions.map((q) => (
                     <li key={q.id} className="list-group-item d-flex justify-content-center">
                         <span>
-                            <Link to={`/questions/${q.id}`} className="flex-grow-1">
+                            <Link to={`/questions/${q.id}`} className="flex-grow-1 text-decoration-none">
                             {q.title} - {q.username}
                             </Link>
                         </span>
