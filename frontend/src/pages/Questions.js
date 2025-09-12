@@ -105,7 +105,9 @@ export default function Questions() {
                 {questions.map((q) => (
                     <li key={q.id} className="list-group-item d-flex justify-content-center">
                         <span>
-                            <Link to={`/questions/${q.id}`}>{q.title}</Link> - {q.username}
+                            <Link to={`/questions/${q.id}`} className="flex-grow-1">
+                            {q.title} - {q.username}
+                            </Link>
                         </span>
                         {token && q.username === decodedUsername && (
                             <button className="btn btn-secondary btn-sm ms-2" onClick={() => deleteQuestion(q.id)}>

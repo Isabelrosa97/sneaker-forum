@@ -153,5 +153,24 @@ app.post("/api/questions/:id/answers", authenticateToken, async (req, res) => {
     }
 });
 
+// Delete answer
+app.delete("/api/answers/:id", authenticateToken, async (req, res) => {
+    const answerId = req.params.id;
+    try{
+        const [rows] = await pool.query("SELECT user_id FROM answers WHERE id = ?", [answerId]);
+        if (rows.length === 0) return res.status(404).json({ error: "Answer not found"});
+
+        if (rows[0].user_id !== req.user.id) {
+            return res.status(403).json({ error: "You can only delete your own answers "});
+        }
+        
+        await pool.query("DELETE FROM answers WHERE id = ?", [answerId]);
+        res.json({ message: "Answer deleted"});
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({error: "Failed to delete answer"});
+    }
+});
+
 console.log("starting server...");
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
