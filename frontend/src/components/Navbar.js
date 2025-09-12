@@ -11,7 +11,7 @@ export default function Navbar({ username, setUsername }) {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark custom-border">
             <div className="container-fluid d-flex justify-content-between align-items-center">
 
                 <div className="d-flex flex-grow-1 align-items-center">
@@ -20,8 +20,7 @@ export default function Navbar({ username, setUsername }) {
                     </Link>
                 </div>
 
-                <div className="d-flex flex-grow-1"></div>
-                <Link to="/" className="navbar-brand mx-auto text-center">
+                <Link to="/" className="navbar-brand mx-auto text-center title-font">
                 Sneaker Forum
                 </Link>
                 <div className="d-flex flex-grow-1 justify-content-end">
