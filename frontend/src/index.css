@@ -18,7 +18,9 @@ body {
   font-family: 'Luckiest Guy';
   font-size: 2.5rem;
 }
-
+h2, h5{
+  font-family: 'Luckiest Guy';
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

@@ -79,7 +79,7 @@ export default function Questions() {
 
     return (
         <div className="text-center">
-            <h2>Questions</h2>
+            <h2 style={{marginTop: '2rem'}}>Questions</h2>
             {token && (
                 <form
                     onSubmit={(e) => {
