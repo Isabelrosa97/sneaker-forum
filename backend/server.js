@@ -9,8 +9,15 @@ import bodyParser from "body-parser";
 import cors from "cors";
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 const PORT = process.env.PORT || 5001;
 const SECRET = process.env.JWT_SECRET;
+
+// Test route
+app.get("/test", (req, res) => {
+  res.send("API is working!");
+});
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -93,16 +100,45 @@ app.get("/api/questions", async (req, res) => {
     res.json(rows);
 });
 
+// Get single question by ID
+app.get("/api/questions/:id", async (req, res) => {
+    try{
+        const [rows] = await pool.query(
+            `SELECT q.id, q.title, q.body, q.category_id, u.username, q.created_at
+            FROM questions q
+            JOIN users u ON q.user_id = u.id
+            WHERE q.id = ?`,
+            [req.params.id]
+        );
+        if (rows.length === 0) {
+            return res.status(404).json ({ error: "Question not found"});
+        }
+        res.json(rows[0]);
+    } catch (err) {
+        console.error("Error fetching question:", err);
+        res.status(500).json({ error: "Failed to fetch question"});
+    }
+})
+
 // Post question 
 app.post ("/api/questions", authenticateToken, async (req, res) => {
     const { title, body, category_id } = req.body;
     try{
-        await pool.query(
+        const [result] = await pool.query(
             "INSERT INTO questions (user_id, title, body, category_id) VALUES (?, ?, ?, ?)",
             [req.user.id, title, body, category_id]
         );
-        res.json({ message: "Question Posted"});
+        const insertId = result.insertId;
+        const [rows] = await pool.query(
+            `SELECT q.id, q.title, q.body, q.category_id, u.username, q.created_at
+             FROM questions q
+             JOIN users u ON q.user_id = u.id
+             WHERE q.id = ?`,
+             [insertId]
+        );
+        res.json(rows[0]);
     } catch (err) {
+        console.error("Error:", err);
         res.status(400).json({error: err.message});
     }
 });
@@ -142,14 +178,23 @@ app.get("/api/questions/:id/answers", async (req, res) => {
 // Post an answer 
 app.post("/api/questions/:id/answers", authenticateToken, async (req, res) => {
     const { body } = req.body;
+    const questionId = parseInt(req.params.id);
+    if (!body || !body.trim()) return res.status(400).json({ error: "Answer is required"});
     try{
-        await pool.query(
-            "INSERT INTO answers (question_id, user_id, body) VALUES (?, ?, ?)",
-            [req.params.id, req.user.id, body]
+        const result = await pool.query(
+            "INSERT INTO answers (question_id, user_id, body) VALUES ( ?, ?, ?)",
+            [questionId, req.user.id, body]
         );
-        res.json({message: "Answer Posted"});
+        const [rows] = await pool.query(
+            `SELECT a.id, a.body, u.username, a.created_at
+            FROM answers a JOIN users u ON a.user_id = u.id
+            WHERE a.id = ?`,
+            [result[0].insertId]
+        );
+        res.json(rows[0]);
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        console.log(err);
+        res.status(500).json({ error: "Failed to post answer"});
     }
 });
 

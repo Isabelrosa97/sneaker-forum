@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Questions from "./pages/Questions";
 import QuestionDetail from "./pages/QuestionDetail";
 import Navbar from "./components/Navbar";
+import Answers from "./Answers";
 
 function App() {
   const [username, setUsername] = useState(null);
@@ -32,6 +33,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/questions" element={<Questions />} />
         <Route path="/questions/:id" element={<QuestionDetail />} />
+        <Route path="/questions/:id" element={<Answers />} />
       </Routes>
       </div>
     </div>

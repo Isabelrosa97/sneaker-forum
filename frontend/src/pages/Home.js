@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const API = "http://localhost:5001/api";
 
@@ -58,8 +59,11 @@ export default function Home() {
                         {questions.length === 0 && <p>No questions yet.</p>}
                         <ul className="list-group">
                             {questions.map(q => (
-                                <li key={q.question_id} className="list-group-item">
-                                    {q.title} - {q.username}
+                                <li key={q.id} className="list-group-item">
+                                    <Link to={`/questions/${q.id}`} className="text-decoration-none">
+                                        {q.title}
+                                    </Link>
+                                    <span className="ms-2 text-muted">- {q.username}</span>
                                 </li>
                             ))}
                         </ul>                        

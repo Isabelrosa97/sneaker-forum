@@ -10,38 +10,30 @@ export default function Questions() {
     const [newQ, setNewQ] = useState("");
     const [categories, setCategories] = useState([]);
     const [categoryId, setCategoryId] = useState("");
-    const token = localStorage.getItem("token");
 
-    let decodedUsername = null;
-    if (token) {
-        try{
-            decodedUsername = jwtDecode(token).username;
-        } catch (err) {
-            console.error("Invalid token:", err);
-        }
-    }
+    const [token, setToken] = useState(localStorage.getItem("token"));
+    const decodedUsername = token ? jwtDecode(token).username : null;
 
     useEffect(() => {
-        let ignore = false;
-
         async function fetchData() {
             try {
-                const resQuestions = await axios.get(`${API}/questions`);
-                if (!ignore) setQuestions(resQuestions.data);
-
-                const resCategories = await axios.get(`${API}/categories`);
-                if (!ignore) setCategories(resCategories.data);
+                const [qRes, cRes] = await Promise.all([
+                    axios.get(`${API}/questions`),
+                    axios.get(`${API}/categories`)
+                ]);
+                setQuestions(qRes.data);
+                setCategories(cRes.data);
             } catch (err) {
                 console.error(err);
             }
         }
 
         fetchData();
-        return () => { ignore = true; };
     }, []);
 
     async function postQuestion() {
         const token = localStorage.getItem("token");
+        console.log("Token in localStorage:", token);
         if (!token) {
             alert("You must be logged in to post a question");
             return;
@@ -57,21 +49,18 @@ export default function Questions() {
             return;
         }
         try{
-            await axios.post(
+             const res = await axios.post(
             `${API}/questions`,
             { title: newQ, body: "Details coming soon...", category_id: categoryId},
             { headers: { Authorization: `Bearer ${token}`}}
             );
-
+            setQuestions([...questions, res.data]);
             setNewQ("");
-
-            const res = await axios.get(`${API}/questions`);
-            setQuestions(res.data);
         } catch (err) {
-            console.error(err);
+            console.error(err.response?.data || err.message);
             alert("Error posting question.");
         }
-    }
+    };
     async function deleteQuestion(id) {
         if (!token) {
             alert("You must be logged in to delete a question");
