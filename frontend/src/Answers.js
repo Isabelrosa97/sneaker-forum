@@ -54,9 +54,9 @@ export default function Answers() {
             {question && <h2>{question.title}</h2>}
             <h3>Answers</h3>
             {answers.length > 0 ? (
-                <ul className="list-group mb-3">
+                <ul className=" list-group mb-3">
                     {answers.map((a) => (
-                        <li key={a.id} className="list-group-item">
+                        <li key={a.id} className=" list-group-item mb-2">
                            <strong>{a.username}:</strong> {a.body}
                         </li>
                     ))}
@@ -71,7 +71,7 @@ export default function Answers() {
                     onChange={(e) => setNewAnswer(e.target.value)}
                     placeholder="write your answer"
                 />
-                <button type="submit" className="btn btn-secondary">
+                <button type="submit" className="btn">
                     Post 
                 </button>
             </form>

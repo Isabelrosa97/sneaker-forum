@@ -1,27 +1,30 @@
 body {
+  background-image: url('/public/offwhite4s.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
   margin: 0;
   padding: 20px;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .navbar{
   border-radius: 10px;
 }
 .custom-border{
-  border: 3px solid #00f7ff;
+  border: 3px solid #f8f9b9;
 }
 .title-font{
   font-family: 'Luckiest Guy';
   font-size: 2.5rem;
 }
-h2, h5{
+h2, h3, h5{
   font-family: 'Luckiest Guy';
+
 }
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+
+

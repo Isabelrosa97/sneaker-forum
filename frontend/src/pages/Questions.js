@@ -106,7 +106,7 @@ export default function Questions() {
                     placeholder="Ask a sneaker question..."
                     className="form-control w-50"
                     />
-                    <button type="submit" className="btn btn-primary">Post</button>
+                    <button type="submit" className="btn btn-secondary">Post</button>
                 </form>    
             )}
             <ul className="list-group mt-3">

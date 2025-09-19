@@ -11,17 +11,17 @@ export default function Navbar({ username, setUsername }) {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark custom-border">
+        <nav className="navbar navbar-expand-lg navbar-light bg-white custom-border">
             <div className="container-fluid d-flex justify-content-between align-items-center">
 
                 <div className="d-flex flex-grow-1 align-items-center">
-                    <Link to="/questions" className="btn btn-outline-light btn-sm me-3">
+                    <Link to="/questions" className="btn btn-outline-dark btn-sm me-3">
                     Questions
                     </Link>
                 </div>
 
-                <Link to="/" className="navbar-brand mx-auto text-center title-font">
-                Sneaker Forum
+                <Link to="/" className="navbar-brand mx-auto text-center title-font fs-4">
+                The Sneaker Block
                 </Link>
                 <div className="d-flex flex-grow-1 justify-content-end">
                     {username ? (
@@ -29,17 +29,17 @@ export default function Navbar({ username, setUsername }) {
                         <span className="navbar-text me-3">Welcome, {username}</span>
                         <button
                         onClick={handleLogout}
-                        className="btn btn-outline-light btn-sm"
+                        className="btn btn-outline-dark btn-sm"
                         >
                         Logout
                         </button>
                         </>
                     ) : (
                         <>
-                        <Link to="/login" className="btn btn-outline-light btn-sm me-2">
+                        <Link to="/login" className="btn btn-outline-dark btn-sm me-2">
                         Login
                         </Link>
-                        <Link to="/register" className="btn btn-outline-light btn-sm">
+                        <Link to="/register" className="btn btn-outline-dark btn-sm">
                         Register
                         </Link>
                         </>

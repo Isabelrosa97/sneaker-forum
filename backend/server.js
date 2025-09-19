@@ -120,7 +120,7 @@ app.get("/api/questions/:id", async (req, res) => {
     }
 })
 
-// Post question 
+// Post a question 
 app.post ("/api/questions", authenticateToken, async (req, res) => {
     const { title, body, category_id } = req.body;
     try{
@@ -143,7 +143,7 @@ app.post ("/api/questions", authenticateToken, async (req, res) => {
     }
 });
 
-// Delete question
+// Delete a question
 app.delete("/api/questions/:id", authenticateToken, async (req, res) => {
     const questionId = req.params.id;
     try{
@@ -198,7 +198,7 @@ app.post("/api/questions/:id/answers", authenticateToken, async (req, res) => {
     }
 });
 
-// Delete answer
+// Delete an answer
 app.delete("/api/answers/:id", authenticateToken, async (req, res) => {
     const answerId = req.params.id;
     try{
