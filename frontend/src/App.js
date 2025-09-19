@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 import Questions from "./pages/Questions";
 import QuestionDetail from "./pages/QuestionDetail";
 import Navbar from "./components/Navbar";
-import Answers from "./Answers";
+import Answers from "./pages/Answers";
 
 function App() {
   const [username, setUsername] = useState(null);
